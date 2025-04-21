@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Baraa Web Coding | البراء ويب</title>
+  <link rel="manifest" href="/manifest.json">
+
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background: #f4f4f4;
+      color: #333;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+    /* Header */
+    header {
+      background: #fff;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      border-bottom: 1px solid #ddd;
+      z-index: 1000;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ff5722;
+    }
+    .menu {
+      display: flex;
+      list-style: none;
+    }
+    .menu li {
+      margin-left: 2rem;
+    }
+    .menu li a {
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .menu li a:hover {
+      color: #ff5722;
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .menu {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        flex-direction: column;
+        display: none;
+      }
+      .menu li {
+        margin: 1rem 0;
+        text-align: center;
+      }
+      .menu.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+    /* Hero Section */
+    .hero {
+      background: url('https://via.placeholder.com/1200x600') no-repeat center center/cover;
+      height: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 60px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 2rem;
+    }
+    .hero button {
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      border: none;
+      background: #ff5722;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .hero button:hover {
+      background: #e64a19;
+    }
+    /* Sections */
+    section {
+      padding: 4rem 0;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      color: #333;
+    }
+    .about, .services, .portfolio, .assistance, .why-us, .partners, .how-work, .contact {
+      background: #fff;
+    }
+    .about p, .services p, .assistance p, .why-us p, .how-work p {
+      max-width: 800px;
+      margin: 1rem auto;
+      text-align: center;
+    }
+    /* Cards Container */
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .card {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+    }
+    .card h3 {
+      margin-bottom: 1rem;
+      color: #ff5722;
+    }
+    /* Specific widths for cards */
+    .service-card, .portfolio-item, .assistance-item, .why-item, .how-step {
+      width: calc(33.333% - 2rem);
+    }
+    @media (max-width: 768px) {
+      .service-card, .portfolio-item, .assistance-item, .why-item, .how-step {
+        width: calc(50% - 2rem);
+      }
+    }
+    @media (max-width: 500px) {
+      .service-card, .portfolio-item, .assistance-item, .why-item, .how-step {
+        width: 100%;
+      }
+    }
+    /* Contact Form */
+    .contact form {
+      max-width: 600px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .contact input, .contact textarea {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .contact button {
+      padding: 1rem;
+      border: none;
+      background: #ff5722;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .contact button:hover {
+      background: #e64a19;
+    }
+    /* Footer */
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Baraa Web Coding | البراء ويب</div>
+        <div class="menu-toggle" id="mobile-menu">☰</div>
+        <ul class="menu" id="nav-menu">
+          <li><a href="#home">الرئيسية</a></li>
+          <li><a href="#about">من نحن</a></li>
+          <li><a href="#services">خدماتنا</a></li>
+          <li><a href="#portfolio">أعمالنا السابقة</a></li>
+          <li><a href="#assistance">الأدوات المساعدة</a></li>
+          <li><a href="#why-us">لماذا نحن</a></li>
+          <li><a href="#partners">شركاء النجاح</a></li>
+          <li><a href="#how-work">كيفية العمل</a></li>
+          <li><a href="#contact">تواصل معنا</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <h1>نصمم لك موقعك بخبرة واحترافية!</h1>
+      <p>تحول رقمي يبدأ من هنا.</p>
+      <button onclick="scrollToSection('contact')">احصل على استشارة مجانية</button>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2 class="section-title">من نحن</h2>
+      <p>
+        تأسست البراء ويب لخدمات الأعمال في عام 2018 كإحدى الشركات السعودية الرائدة في تقديم الحلول التقنية المتكاملة وخدمات إدارة الأعمال. 
+        نفخر بتقديم خدمات متميزة تُمكّن المؤسسات الحكومية والخاصة والقطاع غير الربحي من تحقيق التفوق التشغيلي والريادة السوقية.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="container">
+      <h2 class="section-title">خدماتنا</h2>
+      <div class="cards-container">
+        <div class="card service-card">
+          <h3>تصميم المواقع</h3>
+          <p>نصمم مواقع تفاعلية وحديثة تلبي احتياجاتك.</p>
+        </div>
+        <div class="card service-card">
+          <h3>المتاجر الإلكترونية</h3>
+          <p>حلول تجارة إلكترونية متكاملة مع بوابات الدفع.</p>
+        </div>
+        <div class="card service-card">
+          <h3>الاستضافة والدعم الفني</h3>
+          <p>استضافة موثوقة ودعم فني وأمن سيبراني على مدار الساعة.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section class="portfolio" id="portfolio">
+    <div class="container">
+      <h2 class="section-title">أعمالنا السابقة</h2>
+      <div class="cards-container">
+        <div class="card portfolio-item">
+          <img src="https://via.placeholder.com/350x200" alt="مشروع 1" style="width:100%;">
+          <h3>مشروع 1</h3>
+          <p>وصف مختصر عن المشروع الأول.</p>
+        </div>
+        <div class="card portfolio-item">
+          <img src="https://via.placeholder.com/350x200" alt="مشروع 2" style="width:100%;">
+          <h3>مشروع 2</h3>
+          <p>وصف مختصر عن المشروع الثاني.</p>
+        </div>
+        <div class="card portfolio-item">
+          <img src="https://via.placeholder.com/350x200" alt="مشروع 3" style="width:100%;">
+          <h3>مشروع 3</h3>
+          <p>وصف مختصر عن المشروع الثالث.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Assistance Section -->
+  <section class="assistance" id="assistance">
+    <div class="container">
+      <h2 class="section-title">الأدوات المساعدة المباركة</h2>
+      <p>نوفر لك مجموعة من الخدمات المميزة التي تشمل:</p>
+      <div class="cards-container">
+        <div class="card assistance-item">
+          <h3>برمجة وتصميم تطبيقات الجوال</h3>
+        </div>
+        <div class="card assistance-item">
+          <h3>برمجة وتصميم المتاجر الإلكترونية</h3>
+        </div>
+        <div class="card assistance-item">
+          <h3>تصميم المواقع الإلكترونية</h3>
+        </div>
+        <div class="card assistance-item">
+          <h3>الهويات البصرية</h3>
+        </div>
+        <div class="card assistance-item">
+          <h3>التسويق الرقمي</h3>
+        </div>
+        <div class="card assistance-item">
+          <h3>إدارة حسابات التواصل الاجتماعي</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Us Section -->
+  <section class="why-us" id="why-us">
+    <div class="container">
+      <h2 class="section-title">لماذا نحن الشريك التقني الأمثل لك</h2>
+      <div class="cards-container">
+        <div class="card why-item">
+          <h3>الكفاءة</h3>
+          <p>يستخدم فريقنا أحدث تكنولوجيا البرمجة لضمان عمل مشروعك بسلاسة وظهور متألق.</p>
+        </div>
+        <div class="card why-item">
+          <h3>سرعة التنفيذ</h3>
+          <p>نعمل على مدار اليوم لتقديم مشروعك بالجودة التي تطمح لها وفي الوقت المحدد.</p>
+        </div>
+        <div class="card why-item">
+          <h3>أناقة التصميم</h3>
+          <p>تصميم عصري وأنيق يترك انطباعاً قوياً لدى 75% من زوار المواقع.</p>
+        </div>
+        <div class="card why-item">
+          <h3>الدعم الفني</h3>
+          <p>فريق الدعم الفني متابع لك على مدار الساعة لإزالة أي عقبات.</p>
+        </div>
+        <div class="card why-item">
+          <h3>الابتكار ومواكبة التطورات</h3>
+          <p>من تصميم الشعار إلى الدعم المستمر، نوفر لك حلولاً متكاملة تضمن تفرد مشروعك.</p>
+        </div>
+        <div class="card why-item">
+          <h3>الاحترافية</h3>
+          <p>مشروعك مرن وقابل للتحديث باستمرار ليتماشى مع تطورات السوق.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners Section -->
+  <section class="partners" id="partners">
+    <div class="container">
+      <h2 class="section-title">شركاء النجاح</h2>
+      <p>نحن نفتخر بشراكتنا مع العديد من الشركات والمؤسسات الرائدة في مجال التكنولوجيا.</p>
+      <!-- يمكن إضافة شعارات شركاء هنا -->
+      <div class="cards-container">
+        <div class="card">
+          <img src="https://via.placeholder.com/150x80" alt="شريك 1" style="width:100%;">
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/150x80" alt="شريك 2" style="width:100%;">
+        </div>
+        <div class="card">
+          <img src="https://via.placeholder.com/150x80" alt="شريك 3" style="width:100%;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-work" id="how-work">
+    <div class="container">
+      <h2 class="section-title">كيفية العمل</h2>
+      <p>نقوم بتنفيذ مشروعك بشكل مميز من خلال المراحل التالية:</p>
+      <div class="cards-container">
+        <div class="card how-step">
+          <h3>1. فكرة المشروع</h3>
+          <p>حجز استشارة مجانية للتعرف على احتياجاتك.</p>
+        </div>
+        <div class="card how-step">
+          <h3>2. تحليل المشروع</h3>
+          <p>دراسة متطلبات المشروع وتحليلها.</p>
+        </div>
+        <div class="card how-step">
+          <h3>3. التخطيط</h3>
+          <p>وضع خطة واضحة لتحقيق أهداف المشروع.</p>
+        </div>
+        <div class="card how-step">
+          <h3>4. التصميم</h3>
+          <p>تصميم واجهات جذابة ومتميزة.</p>
+        </div>
+        <div class="card how-step">
+          <h3>5. التنفيذ</h3>
+          <p>برمجة وتطوير المشروع باستخدام أحدث التقنيات.</p>
+        </div>
+        <div class="card how-step">
+          <h3>6. مراجعة المشروع</h3>
+          <p>فحص وتقييم المشروع قبل النشر النهائي.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="section-title">تواصل معنا</h2>
+      <form id="contact-form">
+        <input type="text" id="name" name="name" placeholder="الاسم" required>
+        <input type="email" id="email" name="email" placeholder="البريد الإلكتروني" required>
+        <input type="text" id="phone" name="phone" placeholder="رقم الجوال" required>
+        <textarea id="message" name="message" rows="5" placeholder="رسالتك" required></textarea>
+        <button type="submit">إرسال</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2025 Baraa Web Coding | البراء ويب. جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle Mobile Menu
+    const menuToggle = document.getElementById('mobile-menu');
+    const navMenu = document.getElementById('nav-menu');
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+
+    // Smooth Scrolling
+    function scrollToSection(id) {
+      const section = document.getElementById(id);
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Contact Form Submission (Simulation)
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('تم إرسال رسالتك بنجاح!');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
